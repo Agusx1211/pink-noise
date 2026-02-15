@@ -1,0 +1,15 @@
+services:
+  pink-noise:
+    build: .
+    container_name: pink-noise
+    restart: unless-stopped
+    environment:
+      - MQTT_BROKER=tcp://homeassistant.local
+      - MQTT_PORT=1883
+      - MQTT_USER=${MQTT_USER}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+      - MQTT_TOPIC=homeassistant/noise
+    devices:
+      - /dev/snd:/dev/snd
+    volumes:
+      - /run/user/1000/pulse:/run/user/1000/pulse
